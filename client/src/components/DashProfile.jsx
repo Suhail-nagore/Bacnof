@@ -235,7 +235,7 @@ export default function DashProfile() {
         />
         <Button
           type='submit'
-          gradientDuoTone='purpleToBlue'
+          gradientDuoTone='greenToBlue'
           outline
           disabled={loading || imageFileUploading}
         >
@@ -245,7 +245,7 @@ export default function DashProfile() {
           <Link to={'/create-post'}>
             <Button
               type='button'
-              gradientDuoTone='purpleToPink'
+              gradientDuoTone='pinkToOrange'
               className='w-full'
             >
               Create a post

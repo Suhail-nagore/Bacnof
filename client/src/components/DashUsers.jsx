@@ -7,6 +7,7 @@ import { FaCheck, FaTimes } from 'react-icons/fa';
 export default function DashUsers() {
   const { currentUser } = useSelector((state) => state.user);
   const [users, setUsers] = useState([]);
+  const [isAdmin, setIsAdmin]= useState([]);
   const [showMore, setShowMore] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [userIdToDelete, setUserIdToDelete] = useState('');
@@ -46,20 +47,22 @@ export default function DashUsers() {
     }
   };
 
+
+
   const handleDeleteUser = async () => {
     try {
-        const res = await fetch(`/api/user/delete/${userIdToDelete}`, {
-            method: 'DELETE',
-        });
-        const data = await res.json();
-        if (res.ok) {
-            setUsers((prev) => prev.filter((user) => user._id !== userIdToDelete));
-            setShowModal(false);
-        } else {
-            console.log(data.message);
-        }
+      const res = await fetch(`/api/user/delete/${userIdToDelete}`, {
+        method: 'DELETE',
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setUsers((prev) => prev.filter((user) => user._id !== userIdToDelete));
+        setShowModal(false);
+      } else {
+        console.log(data.message);
+      }
     } catch (error) {
-        console.log(error.message);
+      console.log(error.message);
     }
   };
 
@@ -74,6 +77,7 @@ export default function DashUsers() {
               <Table.HeadCell>Username</Table.HeadCell>
               <Table.HeadCell>Email</Table.HeadCell>
               <Table.HeadCell>Admin</Table.HeadCell>
+              {/* <Table.HeadCell>Change Role</Table.HeadCell> */}
               <Table.HeadCell>Delete</Table.HeadCell>
             </Table.Head>
             {users.map((user) => (
@@ -98,6 +102,15 @@ export default function DashUsers() {
                       <FaTimes className='text-red-500' />
                     )}
                   </Table.Cell>
+                  {/* <Table.Cell>
+                    <button
+                      className={`${user.isAdmin ? 'bg-green-500' : 'bg-red-500'
+                        } text-white rounded p-2`}
+                      onClick={() => handleAdminToggle(user._id, !user.isAdmin)}
+                    >
+                      {user.isAdmin ? 'Remove Admin' : 'Make Admin'}
+                    </button>
+                  </Table.Cell> */}
                   <Table.Cell>
                     <span
                       onClick={() => {
